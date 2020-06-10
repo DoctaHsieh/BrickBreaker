@@ -14,12 +14,16 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private Timer timer;
     private int delay = 8;
 
+    // padel
     private int playerX = 310;
 
     private int ballposX = 120;
     private int ballposY = 350;
-    private int ballXdir = -1;
-    private int ballYdir = -2;
+    private int ballXdir = 0;
+    private int ballYdir = 0;
+    private int ballXSeed = -1;
+    private int ballYSeed = -2;
+    private int speed = 2;
 
     private MapGenerator map;
 
@@ -89,7 +93,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         timer.start();
         if(play) {
             if(new Rectangle(ballposX,ballposY, 20, 20).intersects(new Rectangle(playerX, 550, 100, 8))){
-                ballYdir = -ballYdir;
+                ballYdir = -ballYdir * speed;
             }
             A: for(int i = 0; i<map.map.length; i++){
                 for(int j = 0; j<map.map[0].length; j++){
@@ -108,9 +112,11 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                             score+=5;
                             totalBricks--;
 
+
+
                             if(ballposX + 19 <= brickRect.x || ballposX + 1 >= brickRect.x + brickRect.width)
                             {
-                                ballXdir = -ballXdir;
+                                ballXdir = -ballXSeed ;
                             } else
                             {
                                 ballYdir = -ballYdir;
@@ -125,13 +131,13 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
             ballposX += ballXdir;
             ballposY += ballYdir;
-            if(ballposX < 0){
-                ballXdir = -ballXdir;
+            if(ballposX < -0){
+                ballXdir = -ballXSeed ;
             }
             if(ballposY< 0){
-                ballYdir = -ballYdir;
+                ballYdir = -ballYSeed ;
             }
-            if(ballposX> 670){
+            if(ballposX > 672){
                 ballXdir = -ballXdir;
             }
         }
@@ -172,8 +178,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 play = true;
                 ballposX = (int)(692.0 * Math.random());
                 ballposY = 350;
-                ballXdir = -1;
-                ballYdir = -2;
+                ballXdir = ballXSeed * speed;
+                ballYdir = ballYSeed * speed;
                 playerX = 310;
                 score = 0;
                 totalBricks = 21;
@@ -196,3 +202,4 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
 
 }
+
