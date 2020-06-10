@@ -116,10 +116,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
                             if(ballposX + 19 <= brickRect.x || ballposX + 1 >= brickRect.x + brickRect.width)
                             {
-                                ballXdir = -ballXSeed ;
+                                ballXdir = -ballXSeed * speed/2 ;
                             } else
                             {
-                                ballYdir = -ballYdir;
+                                ballYdir = -ballYdir * speed/2;
                             }
 
                             break A;
@@ -132,13 +132,13 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             ballposX += ballXdir;
             ballposY += ballYdir;
             if(ballposX < -0){
-                ballXdir = -ballXSeed ;
+                ballXdir = -ballXSeed * speed;
             }
             if(ballposY< 0){
-                ballYdir = -ballYSeed ;
+                ballYdir = -ballYSeed * speed ;
             }
             if(ballposX > 672){
-                ballXdir = -ballXdir;
+                ballXdir = -ballXdir * speed;
             }
         }
         repaint();
@@ -192,14 +192,13 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
         public void moveRight() {
             play = true;
-            playerX += 20;
+            playerX += 35;
         }
 
         public void moveLeft()  {
             play = true;
-            playerX -= 20;
+            playerX -= 35;
         }
 
 
 }
-
